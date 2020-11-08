@@ -1,6 +1,6 @@
 # MakiRouter - Php routing system
 
-Simple router which navigates request through application.
+Router which navigates request through application.
 
 ## Table of contents
 * [Technologies](#technologies)
