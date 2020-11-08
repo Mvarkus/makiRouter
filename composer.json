@@ -1,0 +1,17 @@
+{
+    "name": "makigon/makirouter",
+    "description": "The router is used to navigate request trough an app and craete apps with human readable URIs.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Maksim Varkus",
+            "email": "m.varkus@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/http-foundation": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {"MakiGon\\": "src/"}
+    }
+}
