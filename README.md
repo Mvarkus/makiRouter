@@ -66,7 +66,7 @@ Router::get(
 // Visiting /users/Maksim/Varkus will give us: Full name: Maksim Varkus
 ```
 
-#### Bad
+##### Bad
 
 File: **routes/web.php**
 ```php
@@ -117,7 +117,7 @@ Router::get(
 // Visiting /users/1 will give us: User #1
 ```
 
-#### Bad
+##### Bad
 
 File: **routes/web.php**
 ```php
