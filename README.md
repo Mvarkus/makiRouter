@@ -11,7 +11,7 @@ Router which navigates request through application.
     * [Optional parameters](#optional-parameters)
 * [Usage Examples](#usage-examples)
 ## Technologies
-* Php >=5
+* Php >=5.6
 * Symfony http foundation ^5.1
 ## Available functions
 
