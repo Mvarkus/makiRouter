@@ -1,6 +1,6 @@
 # MakiRouter - Php routing system
 
-Simple router which navigates request through application.
+RPHP router which navigates request through an application.
 
 ## Table of contents
 * [Technologies](#technologies)
@@ -11,7 +11,7 @@ Simple router which navigates request through application.
     * [Optional parameters](#optional-parameters)
 * [Usage Examples](#usage-examples)
 ## Technologies
-* Php >=5
+* Php >=5.6
 * Symfony http foundation ^5.1
 ## Available functions
 
@@ -66,7 +66,7 @@ Router::get(
 // Visiting /users/Maksim/Varkus will give us: Full name: Maksim Varkus
 ```
 
-#### Bad
+##### Bad
 
 File: **routes/web.php**
 ```php
@@ -117,7 +117,7 @@ Router::get(
 // Visiting /users/1 will give us: User #1
 ```
 
-#### Bad
+##### Bad
 
 File: **routes/web.php**
 ```php
