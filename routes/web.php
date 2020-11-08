@@ -1,6 +1,6 @@
 <?php
 
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

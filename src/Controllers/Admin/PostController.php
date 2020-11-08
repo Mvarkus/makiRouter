@@ -1,6 +1,6 @@
 <?php
 
-namespace MakiGon\Controllers\Admin;
+namespace Mvarkus\Controllers\Admin;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

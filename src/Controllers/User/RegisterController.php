@@ -1,6 +1,6 @@
 <?php
 
-namespace MakiGon\Controllers\User;
+namespace Mvarkus\Controllers\User;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

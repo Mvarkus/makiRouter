@@ -48,7 +48,7 @@ It is okay to use same names in separate routes.
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -70,7 +70,7 @@ Router::get(
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -100,7 +100,7 @@ you must define it using "with" method on single route and
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -121,7 +121,7 @@ Router::get(
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -148,7 +148,7 @@ If nothing was set, null will be default parameter value.
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -172,7 +172,7 @@ Router::get(
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -196,7 +196,7 @@ Router::get(
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -210,7 +210,7 @@ Router::get('/', function () {
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -224,7 +224,7 @@ Router::get('/login', function () {
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -240,7 +240,7 @@ Router::post('/login', function (Request $request) {
 Usually you will use patterns like: id, name, token, pid, uid etc.
 
 Instead of defining these in each route, you can predefine them in getSharedPatterns method,
-which is located in MakiGon\MakiRouter class.
+which is located in Mvarkus\MakiRouter class.
 
 The method simply returns array of patterns, 
 the array will be used by every route to check for replacement patterns.
@@ -266,12 +266,12 @@ public static function getSharedPatterns(): array
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Put request
-// id has been defined globaly in MakiGon\MakiRouter class, line: 31
+// id has been defined globaly in Mvarkus\MakiRouter class, line: 31
 Router::put('/users/{id}', function (
     int $id,
     Request $request
@@ -284,12 +284,12 @@ Router::put('/users/{id}', function (
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Patch request
-// id has been defined globaly in MakiGon\MakiRouter class, line: 31
+// id has been defined globaly in Mvarkus\MakiRouter class, line: 31
 Router::put('/users/{id}', function (
     int $id,
     Request $request
@@ -302,12 +302,12 @@ Router::put('/users/{id}', function (
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Delete request
-// id has been defined globaly in MakiGon\MakiRouter class, line: 31
+// id has been defined globaly in Mvarkus\MakiRouter class, line: 31
 Router::delete('/posts/{id}', function (int $id) {
     return new Response("Remove post with id #{$id}");
 });
@@ -317,12 +317,12 @@ Router::delete('/posts/{id}', function (int $id) {
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // More than one parameter
-// firstname and second name parameters have been defined globaly in MakiGon\MakiRouter class, line: 31
+// firstname and second name parameters have been defined globaly in Mvarkus\MakiRouter class, line: 31
 // So you do not have to define replacements here.
 Router::get(
     '/users/{firstname}/{secondname}',
@@ -339,12 +339,12 @@ Router::get(
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Get method with optional parameter
-// id has been defined globaly in MakiGon\MakiRouter class, line: 31
+// id has been defined globaly in Mvarkus\MakiRouter class, line: 31
 // So you do not have to define replacements here.
 Router::get(
     '/users/{id?}/username',
@@ -377,7 +377,7 @@ Available settings for group: [
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -419,7 +419,7 @@ function() {
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -435,7 +435,7 @@ Router::post('/register', 'User\RegisterController@register');
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -456,7 +456,7 @@ Router::group([
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -473,7 +473,7 @@ Router::match(['put', 'patch'], '/match/users/{id}', function (
 
 File: **routes/web.php**
 ```php
-use MakiGon\MakiRouter as Router;
+use Mvarkus\MakiRouter as Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

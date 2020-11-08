@@ -1,6 +1,6 @@
 <?php
 
-namespace MakiGon;
+namespace Mvarkus;
 
 use Closure;
 
