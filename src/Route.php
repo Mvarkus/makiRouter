@@ -276,7 +276,7 @@ class Route
      */
     public function resolve(Request $request): Response
     {
-        $parameters = empty($this->routeParameters) ?
+        $parameters = !empty($this->routeParameters) ?
             $this->routeParameters+[$request] :
             [$request];
 
