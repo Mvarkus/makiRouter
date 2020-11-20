@@ -170,8 +170,7 @@ class Router
         $requestMethod = strtolower($requestMethod);
 
         if (!$this->requestMethodIsSupported([$requestMethod])) {
-            http_response_code(405);
-            die;
+            return new Response(null, Response::HTTP_METHOD_NOT_ALLOWED);
         }
 
         $requestUri = trimSlashesFromTheEnd($requestUri);
@@ -185,7 +184,6 @@ class Router
 
         }
 
-        http_response_code(404);
-        die;
+        return new Response(null, Response::HTTP_NOT_FOUND);
     }
 }
