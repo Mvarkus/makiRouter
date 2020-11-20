@@ -7,13 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 // Simple get request
 Router::get('/', function () {
     return new Response('Homepage');
-}, 'homepage');
+});
 
 // Simple get request
 Router::get('/login', function () {
     return new Response('Show login form');
 });
-
 
 // Put request
 Router::put('/users/{id}', function (
