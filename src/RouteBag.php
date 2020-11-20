@@ -63,24 +63,21 @@ class RouteBag
 
     /**
      * Adds route to the collection.
-     * 
+     *
      * Creates route, adds it to grouped routes array if collection is in group mode.
      * Add route to provided methods groups.
      *
-     * @param array          $methodGroups
-     * @param string         $rawUriPattern
+     * @param array $methodGroups
+     * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null    $routeName
-     * 
      * @return Route
      */
     public function addRoute(
         array  $methodGroups,
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
-        $route = $this->makeRoute(
+        $route = Route::makeRoute(
             $rawUriPattern,
             $resolver
         );
@@ -89,18 +86,8 @@ class RouteBag
             $this->addRouteToGroup($route);
         }
 
-        if ($routeName !== null) {
-
-            foreach($methodGroups as $methodGroup) {
-                $this->routes[$methodGroup][$routeName] = $route;
-            }
-
-        } else {
-
-            foreach($methodGroups as $methodGroup) {
-                $this->routes[$methodGroup][] = $route;
-            }
-
+        foreach($methodGroups as $methodGroup) {
+            $this->routes[$methodGroup][] = $route;
         }
 
         return $route;
@@ -115,24 +102,6 @@ class RouteBag
     public function getRoutesByMethod(string $method): array
     {
         return $this->routes[$method];
-    }
-
-    /**
-     * Tries to find named route and return it
-     *
-     * @param string $routeName
-     * @return Route|false
-     */
-    public function getRouteByName(
-        string $routeName
-    ) {
-        foreach ($this->routes as $routeGroup) {
-            if (array_key_exists($routeName, $routeGroup)) {
-                return $routeGroup[$routeName];
-            }
-        }
-
-        return false;
     }
 
     /**
@@ -194,23 +163,4 @@ class RouteBag
         }
         return $this;
     }
-
-    /**
-     * Created Route instance and returns it
-     *
-     * @param string $rawUriPattern
-     * @param Closure|string $resolver
-     * 
-     * @return Route
-     */
-    private function makeRoute(
-        string $rawUriPattern,
-        $resolver
-    ): Route {
-        return new Route(
-            $rawUriPattern,
-            $resolver
-        );
-    }
-
 }

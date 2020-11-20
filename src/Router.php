@@ -37,17 +37,17 @@ class Router
      * Defines class properties
      *
      * @param array $allowedMethods
-     * @param RouteBag $routeCollection
+     * @param RouteBag $routeBag
      */
     public function __construct(
-        array           $allowedMethods,
-        RouteBag $routeCollection
+        array $allowedMethods,
+        RouteBag $routeBag
     ) {
         foreach($allowedMethods as $allowedMethod) {
             $this->allowedMethods[] = strtolower($allowedMethod);
         }
         
-        $this->routeCollection = $routeCollection;
+        $this->routeCollection = $routeBag;
     }
 
     /**
@@ -59,7 +59,6 @@ class Router
     public function setRequest(Request $request)
     {
         $this->request = $request;
-        
         return $this;
     }
 
@@ -71,15 +70,13 @@ class Router
      * @param array $methods
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
      *
      * @return Route
      */
     public function combine(
         array  $methods,
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
 
         if (!$this->requestMethodIsSupported($methods)) {
@@ -89,8 +86,7 @@ class Router
         return $this->routeCollection->addRoute(
             $methods,
             $rawUriPattern,
-            $resolver,
-            $routeName
+            $resolver
         );
 
     }
@@ -140,10 +136,8 @@ class Router
         $this->routeCollection->enableGroupMode();
         call_user_func($callback);
 
-        
         foreach ($settings as $methodName => $settingParameters) {
             if (method_exists($this->routeCollection, $methodName)) {
-
                 call_user_func_array(
                     [$this->routeCollection, $methodName],
                     [$settingParameters]

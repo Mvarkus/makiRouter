@@ -327,4 +327,22 @@ class Route
         
         return preg_replace($patterns, $replacements, $uriPattern);
     }
+
+    /**
+     * Created Route instance and returns it
+     *
+     * @param string $rawUriPattern
+     * @param Closure|string $resolver
+     *
+     * @return Route
+     */
+    public static function makeRoute(
+        string $rawUriPattern,
+        $resolver
+    ): Route {
+        return new Route(
+            $rawUriPattern,
+            $resolver
+        );
+    }
 }

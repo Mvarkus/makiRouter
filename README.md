@@ -16,19 +16,19 @@ PHP router which navigates request through an application.
 ## Available functions
 
 ```php
-MakiRouter::get(string $uri, Closure|string $resolver [, string $routeName]);
+MakiRouter::get(string $uri, Closure|string $resolver);
 
-MakiRouter::post(string $uri, Closure|string $resolver [, string $routeName]);
+MakiRouter::post(string $uri, Closure|string $resolver);
 
-MakiRouter::patch(string $uri, Closure|string $resolver [, string $routeName]);
+MakiRouter::patch(string $uri, Closure|string $resolver);
 
-MakiRouter::put(string $uri, Closure|string $resolver [, string $routeName]);
+MakiRouter::put(string $uri, Closure|string $resolver);
 
-MakiRouter::delete(string $uri, Closure|string $resolver [, string $routeName]);
+MakiRouter::delete(string $uri, Closure|string $resolver);
 
-MakiRouter::any(string $uri, Closure|string $resolver [, string $routeName]);
+MakiRouter::any(string $uri, Closure|string $resolver);
 
-MakiRouter::match(array $methods, string $uri, Closure|string $resolver [, string $routeName]);
+MakiRouter::match(array $methods, string $uri, Closure|string $resolver);
 
 MakiRouter::group(array $settings, Closure $callback);
 
@@ -201,7 +201,7 @@ use Symfony\Component\HttpFoundation\Response;
 // Simple get request
 Router::get('/', function () {
     return new Response('Homepage');
-}, 'homepage');
+});
 ```
 
 ### Simple GET route Nr.2

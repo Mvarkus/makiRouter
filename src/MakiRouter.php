@@ -99,21 +99,18 @@ class MakiRouter
      *
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
      *
      *
      * @return Route - returns created route
      */
     public static function get(
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
         return self::router()->combine(
             ['get'],
             $rawUriPattern,
-            $resolver,
-            $routeName
+            $resolver
         );
     }
 
@@ -122,21 +119,17 @@ class MakiRouter
      *
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
-     *
      *
      * @return Route - returns created route
      */
     public static function post(
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
         return self::router()->combine(
             ['post'],
             $rawUriPattern,
-            $resolver,
-            $routeName
+            $resolver
         );
     }
 
@@ -145,21 +138,17 @@ class MakiRouter
      *
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
-     *
      *
      * @return Route - returns created route
      */
     public static function put(
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
         return self::router()->combine(
             ['put'],
             $rawUriPattern,
-            $resolver,
-            $routeName
+            $resolver
         );
     }
 
@@ -168,21 +157,17 @@ class MakiRouter
      *
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
-     *
      *
      * @return Route - returns created route
      */
     public static function delete(
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
         return self::router()->combine(
             ['delete'],
             $rawUriPattern,
-            $resolver,
-            $routeName
+            $resolver
         );
     }
 
@@ -191,21 +176,17 @@ class MakiRouter
      *
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
-     *
      *
      * @return Route - returns created route
      */
     public static function patch(
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
         return self::router()->combine(
             ['patch'],
             $rawUriPattern,
-            $resolver, 
-            $routeName
+            $resolver
         );
     }
 
@@ -215,22 +196,18 @@ class MakiRouter
      * @param array $methods - e.g. ['post', 'get']
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
-     *
      *
      * @return Route - returns created route
      */
     public static function match(
         array $methods,
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
         return self::router()->combine(
             $methods,
             $rawUriPattern,
-            $resolver,
-            $routeName
+            $resolver
         );
     }
 
@@ -239,21 +216,17 @@ class MakiRouter
      *
      * @param string $rawUriPattern
      * @param Closure|string $resolver
-     * @param string|null $routeName
-     *
      *
      * @return Route - returns created route
      */
     public static function any(
         string $rawUriPattern,
-        $resolver,
-        string $routeName = null
+        $resolver
     ): Route {
         return self::router()->combine(
             self::router()->getAllowedMethods(),
             $rawUriPattern,
-            $resolver,
-            $routeName
+            $resolver
         );
     }
 
@@ -266,9 +239,8 @@ class MakiRouter
      *
      * @return Response
      */
-    public static function routeRequest(
-        Request $request
-    ): Response {
+    public static function routeRequest(Request $request): Response
+    {
         return static::router()->setRequest($request)->routeRequest(
             $request->getRealMethod(),
             $request->getPathInfo()
