@@ -156,22 +156,6 @@ class Router
     }
 
     /**
-     * Redirects user to named route
-     *
-     * @param string $name
-     * @param array $params
-     * @return mixed - resolver's response.
-     */
-    public function redirectToRoute(
-        string $name,
-        array $params = []
-    ) {
-        return $this->routeCollection
-            ->getRouteByName($name)
-            ->resolve($this->request, $params);
-    }
-
-    /**
      * Routes request.
      *
      * First, it checks whether the requested method is supported by router.

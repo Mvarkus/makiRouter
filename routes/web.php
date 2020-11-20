@@ -14,16 +14,6 @@ Router::get('/login', function () {
     return new Response('Show login form');
 });
 
-// Redirect example
-Router::get('/redirect', function () {
-    return Router::redirectToRoute('userPage', ['firstname' => 'Maksim', 'lastname' => 'Varkus']);
-});
-
-// Post request
-Router::post('/login', function (Request $request) {
-    // Do logging in and redirect to homepage
-    return Router::redirectToRoute('homepage');
-});
 
 // Put request
 Router::put('/users/{id}', function (

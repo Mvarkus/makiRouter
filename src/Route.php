@@ -268,30 +268,20 @@ class Route
     /**
      * Calls route's resolver.
      *
-     * This method can be called from Router when matching requested uri,
-     * And on redirecting to named route.
      * The method tries to find out whether the resolver is Closure or controller.
      * Then it calls it with route's parameters.
      *
-     * @param array|null $parameters - in case if method is called when calling route by its name.
      * @param Request $request
      * @return Response
      */
-    public function resolve(
-        Request $request,
-        array $parameters = null
-    ): Response {
-        // In case if route was called directly, add parameters to the data array
-        $data = $parameters === null ? [] : $parameters;
-
-        if (!empty($this->routeParameters)) {
-            $data = $data+$this->routeParameters+[$request];
-        } else {
-            $data = $data+[$request];
-        }
+    public function resolve(Request $request): Response
+    {
+        $parameters = empty($this->routeParameters) ?
+            $this->routeParameters+[$request] :
+            [$request];
 
         if (is_callable($this->resolver)) {
-            return call_user_func_array($this->resolver, $data);
+            return call_user_func_array($this->resolver, $parameters);
         } 
 
         list($controller, $action) = explode('@', $this->resolver);
@@ -299,14 +289,12 @@ class Route
             "{$this->controllerNamespace}\\{$controller}" :
             "{$this->controllerNamespace}\\{$this->namespacePrefix}\\{$controller}";
 
-        return call_user_func_array(
-            [
+        return call_user_func_array([
                 new $controller,
                 $action
             ], 
-            $data
-        );        
-        
+            $parameters
+        );
     }
 
     /**

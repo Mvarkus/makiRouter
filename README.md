@@ -32,8 +32,6 @@ MakiRouter::match(array $methods, string $uri, Closure|string $resolver [, strin
 
 MakiRouter::group(array $settings, Closure $callback);
 
-MakiRouter::redirectToRoute(string $name, array $params = []);
-
 ```
 ## Rules to follow and just nice to know
 
@@ -217,21 +215,6 @@ use Symfony\Component\HttpFoundation\Response;
 // Simple get request
 Router::get('/login', function () {
     return new Response('Show login form');
-});
-```
-
-### POST route with redirect to homepage
-
-File: **routes/web.php**
-```php
-use Mvarkus\MakiRouter as Router;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-// Post request
-Router::post('/login', function (Request $request) {
-    // Do loging in and redirect to homepage if successful
-    return Router::redirectToRoute('homepage');
 });
 ```
 

@@ -48,21 +48,6 @@ class MakiRouter
     }
 
     /**
-     * Redirects user to a named route
-     *
-     * @param string $name - Route's name
-     * @param array $params - Route's parameters
-     * 
-     * @return mixed - it will return resolver's response
-     */
-    public static function redirectToRoute(
-        string $name,
-        array $params = []
-    ) {
-        return static::router()->redirectToRoute($name, $params);
-    }
-
-    /**
      * Initiates router settings
      *
      * @param string $routesFile
