@@ -42,8 +42,7 @@ Router::get(
         string $firstName, string $lastName
     ) {
         return new Response("Full name: $firstName $lastName");
-    },
-    'userPage'
+    }
 );
 
 // Get method with optional parameter
