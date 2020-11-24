@@ -3,11 +3,15 @@
 namespace Mvarkus;
 
 use Closure;
+use Mvarkus\Helpers\TrimSlashes;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class Route
 {
+    
+    use TrimSlashes;
+    
     /**
      * Request method to which the route is assigned
      *
@@ -215,16 +219,16 @@ class Route
         string $uriPattern,
         string $uriPrefix = null
     ): string {
-        $uriPattern = trimSlashesFromTheEnd($uriPattern);
-        $uriPattern = trimExtraSlashesFromTheStart($uriPattern);
+        $uriPattern = $this->trimSlashesFromTheEnd($uriPattern);
+        $uriPattern = $this->trimExtraSlashesFromTheStart($uriPattern);
 
         if ($uriPrefix !== null) {
-            $uriPrefix = trimExtraSlashesFromTheStart($uriPrefix);
-            $uriPrefix = trimSlashesFromTheEnd($uriPrefix);
+            $uriPrefix = $this->trimExtraSlashesFromTheStart($uriPrefix);
+            $uriPrefix = $this->trimSlashesFromTheEnd($uriPrefix);
 
             // In case if prefix is for example: /admin and actual pattern is /
             // We trim it again to get rid of that extra slash to have /admin pattern
-            return trimSlashesFromTheEnd($uriPrefix.$uriPattern);
+            return $this->trimSlashesFromTheEnd($uriPrefix.$uriPattern);
         }
         return $uriPattern;
     }
@@ -310,6 +314,9 @@ class Route
         array  $userReplacements,
         string $uriPattern
     ): string {
+
+        // Create empty arrays
+        $patterns = $replacements = [];
 
         foreach ($userReplacements as $patternSet => $replacement) {
             foreach (explode('|', $patternSet) as $pattern) {

@@ -4,6 +4,7 @@ namespace Mvarkus;
 
 use Closure;
 use Exception;
+use Mvarkus\Helpers\TrimSlashes;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Router
 {
+
+    use TrimSlashes;
+
     /**
      * Request instance
      * 
@@ -173,8 +177,8 @@ class Router
             return new Response(null, Response::HTTP_METHOD_NOT_ALLOWED);
         }
 
-        $requestUri = trimSlashesFromTheEnd($requestUri);
-        $requestUri = trimExtraSlashesFromTheStart($requestUri);
+        $requestUri = $this->trimSlashesFromTheEnd($requestUri);
+        $requestUri = $this->trimExtraSlashesFromTheStart($requestUri);
 
         foreach($this->routeCollection->getRoutesByMethod($requestMethod) as $route) {
 
