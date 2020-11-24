@@ -3,6 +3,7 @@
 PHP router which navigates request through an application.
 
 ## Table of contents
+* [Init router in index file](#init-router-in-index-file)
 * [Technologies](#technologies)
 * [Available functions](#available-functions)
 * [Rules to follow and just nice to know](#rules-to-follow-and-just-nice-to-know)
@@ -13,6 +14,19 @@ PHP router which navigates request through an application.
 ## Technologies
 * Php >=5.6
 * Symfony http foundation ^5.1
+
+## Init router in index file
+```php
+<?php
+
+require __DIR__ . "/../vendor/autoload.php";
+
+Mvarkus\MakiRouter::init('path/to/routes/file');
+Mvarkus\MakiRouter::routeRequest(
+    Symfony\Component\HttpFoundation\Request::createFromGlobals()
+)->send();
+```
+
 ## Available functions
 
 ```php
