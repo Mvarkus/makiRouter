@@ -101,7 +101,7 @@ class RouteBag
      */
     public function getRoutesByMethod(string $method): array
     {
-        return $this->routes[$method];
+        return $this->routes[$method] ?? [];
     }
 
     /**
