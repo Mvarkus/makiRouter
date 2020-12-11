@@ -20,9 +20,17 @@ class MakiRouter
 {
     /**
      * Router instance
-     * @var Router
+     *
+     * @var Router|null
      */
     private static $router = null;
+
+    /**
+     * Controllers location
+     *
+     * @var string
+     */
+    public static $controllersNamespace;
 
     /**
      * Returns shared patterns.
@@ -37,23 +45,29 @@ class MakiRouter
         ];
     }
 
-    /** 
+    /**
      * Returns controllers location
-     * 
+     *
      * @return string
      */
     public static function getControllersNamespace(): string
     {
-        return __NAMESPACE__ . '\\Controllers';
+        return static::$controllersNamespace;
     }
 
     /**
      * Initiates router settings
      *
      * @param string $routesFile
+     * @param string $controllersNamespace
+     * @throws Exception
      */
-    public static function init(string $routesFile)
-    {
+    public static function init(
+        string $routesFile,
+        string $controllersNamespace = ''
+    ) {
+        static::$controllersNamespace = $controllersNamespace;
+
         if (!static::registerRoutes($routesFile)) {
             throw new Exception("File {$routesFile} does not exist");
         }
