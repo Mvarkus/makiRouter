@@ -21,7 +21,7 @@ PHP router which navigates request through an application.
 
 require __DIR__ . "/../vendor/autoload.php";
 
-Mvarkus\MakiRouter::init('path/to/routes/file');
+Mvarkus\MakiRouter::init('path/to/routes/file', '\Mvarkus\Controllers');
 Mvarkus\MakiRouter::routeRequest(
     Symfony\Component\HttpFoundation\Request::createFromGlobals()
 )->send();
