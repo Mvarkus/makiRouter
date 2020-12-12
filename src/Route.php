@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Route
 {
-    
+
     use TrimSlashes;
-    
+
     /**
      * Request method to which the route is assigned
      *
@@ -42,7 +42,7 @@ class Route
     protected $uriPrefix;
 
     /**
-     * Namespace prefix will be used on controller creation 
+     * Namespace prefix will be used on controller creation
      *
      * @var string|null
      */
@@ -58,7 +58,7 @@ class Route
     /**
      * Regular replacements will be used when
      * replacing raw uri pattern to regular expresion pattern.
-     * 
+     *
      * E.g. /user/{id} => /user/([0-9]+)
      *
      * @var array
@@ -103,7 +103,7 @@ class Route
 
     /**
      * Builds parameters core.
-     * 
+     *
      * In order to give parameters to a resolver in right order,
      * this function builds right order using uri pattern.
      * If route does not have default parameter, null will be used.
@@ -122,7 +122,7 @@ class Route
 
     /**
      * Prepares route for matching with requested uri.
-     * 
+     *
      * The method scrubs uri from extra slashes.
      * Defines default parameters.
      * Then if the route has any regular expression replacements, replaces them.
@@ -131,7 +131,11 @@ class Route
     {
         $this->uriPattern = $this->scrubUriPattern($this->uriPattern, $this->uriPrefix);
         $this->defineDefaultParameters();
-      
+
+        // Transforms string from /users/{something?} to /users{something?}.
+        // The final pattern will look like this ~^/users(?P<something>/[0-9]+)?$~
+        $this->uriPattern = preg_replace('~/({[\w\d]+\?})$~', '$1', $this->uriPattern);
+
         if (!empty($this->regExpReplacements)) {
             $this->uriPattern = $this->replaceHoldersWithRegExp(
                 $this->regExpReplacements,
@@ -235,7 +239,7 @@ class Route
 
     /**
      * Matches request uri.
-     * 
+     *
      * Prepares route for matching.
      * Tries to match route pattern with requested uri.
      * If it was matched successfully, add route parameters.
@@ -286,7 +290,7 @@ class Route
 
         if (is_callable($this->resolver)) {
             return call_user_func_array($this->resolver, $parameters);
-        } 
+        }
 
         list($controller, $action) = explode('@', $this->resolver);
         $controller = $this->getNamespacePrefix() === null ?
@@ -294,16 +298,16 @@ class Route
             "{$this->controllerNamespace}\\{$this->namespacePrefix}\\{$controller}";
 
         return call_user_func_array([
-                new $controller,
-                $action
-            ], 
+            new $controller,
+            $action
+        ],
             $parameters
         );
     }
 
     /**
      * Replaces raw uri pattern with regular expression pattern.
-     * 
+     *
      * E.g. /user/{id?} -> /user/?([0-9]+)?
      *
      * @param array  $userReplacements
@@ -314,16 +318,15 @@ class Route
         array  $userReplacements,
         string $uriPattern
     ): string {
-
         // Create empty arrays
         $patterns = $replacements = [];
 
         foreach ($userReplacements as $patternSet => $replacement) {
             foreach (explode('|', $patternSet) as $pattern) {
 
-                if (strpos($uriPattern, "{".$pattern."?}")) {   
-                    $patterns[]     = "~/{".$pattern."\?}~";
-                    $replacements[] = "/?(?P<$pattern>$replacement)?";
+                if (strpos($uriPattern, "{".$pattern."?}")) {
+                    $patterns[]     = "~{".$pattern."\?}~";
+                    $replacements[] = "(?P<$pattern>/$replacement)?";
                 } else {
                     $patterns[]     = "~{".$pattern."}~";
                     $replacements[] = "(?P<$pattern>$replacement)";
@@ -331,7 +334,7 @@ class Route
 
             }
         }
-        
+
         return preg_replace($patterns, $replacements, $uriPattern);
     }
 
