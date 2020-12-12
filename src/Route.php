@@ -303,7 +303,7 @@ class Route
 
         foreach ($reflection->getParameters() as $parameter)
             if (array_key_exists($parameter->name, $this->routeParameters))
-                $parameters[] = $this->routeParameters[$parameter->name];
+                $parameters[$parameter->name] = $this->routeParameters[$parameter->name];
 
         return call_user_func_array([
             new $controller,
