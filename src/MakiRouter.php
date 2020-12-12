@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * This class wraps up Router's usage.
- * 
+ *
  * It holds router instance and shared data which can be used in
  * any part of the code. All functionality is held in router instance,
  * the class just wraps up its usage. This has been done to make it
  * global and more convenient to use.
- * 
+ *
  */
 class MakiRouter
 {
@@ -33,40 +33,27 @@ class MakiRouter
     public static $controllersNamespace;
 
     /**
-     * Returns shared patterns.
+     * Holds global replacements patterns
      *
-     * @return array
+     * @var array
      */
-    public static function getSharedPatterns(): array
-    {
-        return [
-            'id|category_id|user|product|post' => '[0-9]+',
-            'firstname|name|surname|lastname|title' => '[a-zA-Z]+'
-        ];
-    }
-
-    /**
-     * Returns controllers location
-     *
-     * @return string
-     */
-    public static function getControllersNamespace(): string
-    {
-        return static::$controllersNamespace;
-    }
+    public static $sharedPatterns;
 
     /**
      * Initiates router settings
      *
      * @param string $routesFile
      * @param string $controllersNamespace
+     * @param array $sharedPatterns
      * @throws Exception
      */
     public static function init(
         string $routesFile,
-        string $controllersNamespace = ''
+        string $controllersNamespace = '',
+        array $sharedPatterns = []
     ) {
         static::$controllersNamespace = $controllersNamespace;
+        static::$sharedPatterns = $sharedPatterns;
 
         if (!static::registerRoutes($routesFile)) {
             throw new Exception("File {$routesFile} does not exist");
@@ -75,7 +62,7 @@ class MakiRouter
 
     /**
      * Tries to register routes
-     * 
+     *
      * @param string $routesFile - file which hold all routes
      * @return bool - registration result
      */
@@ -91,7 +78,7 @@ class MakiRouter
 
     /**
      * Returns Router's instance.
-     * 
+     *
      * If the instance does not exist, creates one.
      *
      * @return Router
@@ -266,7 +253,7 @@ class MakiRouter
      *
      * The method groups routes which share same settings like:
      * prefix, namespace, default values.
-     * 
+     *
      * @param array $settings
      * @param Closure $callback
      * @return RouteBag

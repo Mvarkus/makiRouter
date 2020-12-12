@@ -90,15 +90,12 @@ class Route
         string $rawUriPattern,
         $resolver
     ) {
-
         $this->uriPattern = $rawUriPattern;
         $this->resolver   = $resolver;
         $this->method     = strtolower($_SERVER['REQUEST_METHOD']);
 
-        $this->controllerNamespace = MakiRouter::getControllersNamespace();
-
-        $this->with(MakiRouter::getSharedPatterns());
-
+        $this->controllerNamespace = MakiRouter::$controllersNamespace;
+        $this->with(MakiRouter::$sharedPatterns);
     }
 
     /**
