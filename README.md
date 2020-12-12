@@ -12,7 +12,6 @@ PHP router which navigates request through an application.
     * [Optional parameters](#optional-parameters)
 * [Usage Examples](#usage-examples)
 ## Technologies
-* Php >=5.6
 * Symfony http foundation ^5.1
 
 ## Init router in index file
