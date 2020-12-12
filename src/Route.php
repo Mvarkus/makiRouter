@@ -134,7 +134,7 @@ class Route
 
         // Transforms string from /users/{something?} to /users{something?}.
         // The final pattern will look like this ~^/users(?P<something>/[0-9]+)?$~
-        $this->uriPattern = preg_replace('~/({[\w\d]+\?})$~', '$1', $this->uriPattern);
+        $this->uriPattern = preg_replace('~/({[0-9a-zA-Z]+\?})~', '$1', $this->uriPattern);
 
         if (!empty($this->regExpReplacements)) {
             $this->uriPattern = $this->replaceHoldersWithRegExp(
@@ -326,7 +326,7 @@ class Route
 
                 if (strpos($uriPattern, "{".$pattern."?}")) {
                     $patterns[]     = "~{".$pattern."\?}~";
-                    $replacements[] = "(?P<$pattern>/$replacement)?";
+                    $replacements[] = "(/(?P<$pattern>$replacement))?";
                 } else {
                     $patterns[]     = "~{".$pattern."}~";
                     $replacements[] = "(?P<$pattern>$replacement)";
