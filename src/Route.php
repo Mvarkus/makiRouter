@@ -282,8 +282,8 @@ class Route
     public function resolve(Request $request): Response
     {
         $parameters = !empty($this->routeParameters) ?
-            $this->routeParameters+[$request] :
-            [$request];
+            $this->routeParameters+['request' => $request] :
+            ['request' => $request];
 
         if (is_callable($this->resolver)) {
             return call_user_func_array($this->resolver, $parameters);
