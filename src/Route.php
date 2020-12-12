@@ -281,11 +281,16 @@ class Route
      */
     public function resolve(Request $request): Response
     {
-        $parameters = !empty($this->routeParameters) ?
-            $this->routeParameters+['request' => $request] :
-            ['request' => $request];
+        $this->routeParameters['request'] = $request;
+        $parameters = [];
 
         if (is_callable($this->resolver)) {
+            $reflection = new \ReflectionFunction($this->resolver);
+
+            foreach ($reflection->getParameters() as $parameter)
+                if (array_key_exists($parameter->name, $this->routeParameters))
+                    $parameters[$parameter->name] = $this->routeParameters[$parameter->name];
+
             return call_user_func_array($this->resolver, $parameters);
         }
 
@@ -293,6 +298,12 @@ class Route
         $controller = $this->getNamespacePrefix() === null ?
             "{$this->controllerNamespace}\\{$controller}" :
             "{$this->controllerNamespace}\\{$this->namespacePrefix}\\{$controller}";
+
+        $reflection = new \ReflectionMethod($controller, $action);
+
+        foreach ($reflection->getParameters() as $parameter)
+            if (array_key_exists($parameter->name, $this->routeParameters))
+                $parameters[] = $this->routeParameters[$parameter->name];
 
         return call_user_func_array([
             new $controller,
