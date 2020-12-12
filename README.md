@@ -20,7 +20,13 @@ PHP router which navigates request through an application.
 
 require __DIR__ . "/../vendor/autoload.php";
 
-Mvarkus\MakiRouter::init('path/to/routes/file', '\Mvarkus\Controllers');
+Mvarkus\MakiRouter::init(
+   'path/to/routes/file',
+   '\Mvarkus\Controllers', [
+      'id|postId|productId' => '[0-9]+',
+      'tag|name|lname|fname' => '[a-zA-Z+]'
+   ]
+);
 Mvarkus\MakiRouter::routeRequest(
     Symfony\Component\HttpFoundation\Request::createFromGlobals()
 )->send();
@@ -52,6 +58,8 @@ MakiRouter::group(array $settings, Closure $callback);
 
 All parameters must have unique names in one route or grouped routes. 
 It is okay to use same names in separate routes.
+
+Arguments must match name of parameters.
    
 #### Examples
 
@@ -64,7 +72,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 Router::get(
-    '/users/{firstname}/{secondname}', // <--- Good
+    '/users/{firstName}/{secondName}', // <--- Good
     function (
         string $firstName, //
         string $secondName
@@ -72,7 +80,7 @@ Router::get(
         return new Response("Full name: $firstName $secondName");
     }
 )->with([
-    'firstname|secondname' => '[a-zA-Z]+'
+    'firstName|secondName' => '[a-zA-Z]+'
 ]);
 // Visiting /users/Maksim/Varkus will give us: Full name: Maksim Varkus
 ```
@@ -101,7 +109,7 @@ Router::get(
 
 ### Regular expression replacements
 
-If regular expression replacements have not been defined globaly in Router class,
+If regular expression replacements have not been defined globaly in router initiation,
 you must define it using "with" method on single route and
 "with" setting when defining a group.
 
@@ -118,7 +126,7 @@ use Symfony\Component\HttpFoundation\Response;
 Router::get(
     '/users/{id}',
     function (
-        int $userId
+        int $id
     ) {
         return new Response("User #{$id}");
     }
@@ -144,7 +152,7 @@ Router::get(
         return new Response("User #{$id}");
     }
 ); // <-- Bad, no "with" method specifying the parameter
-// Visiting /users/1 will give us: HTTP ERROR 404
+// Visiting /users/1 will give us: HTTP 404
 ```
 ### Optional parameters
 
@@ -166,9 +174,9 @@ use Symfony\Component\HttpFoundation\Response;
 Router::get(
     '/dashboard/{id?}',
     function (
-        $dashboardId // Default is 3
+        $id // Default is 3
     ) {
-        return new Response("Dashboard #{$dashboardId}");
+        return new Response("Dashboard #{$id}");
     }
 )->with([
     'id' => '[0-9]'
@@ -190,9 +198,9 @@ use Symfony\Component\HttpFoundation\Response;
 Router::get(
     '/dashboard/{id?}',
     function (
-        $dashboardId // Default is null
+        $id // Default is null
     ) {
-        return new Response("Dashboard #{$dashboardId}");
+        return new Response("Dashboard #{$id}");
     }
 )->with([
     'id' => '[0-9]'
@@ -229,33 +237,6 @@ use Symfony\Component\HttpFoundation\Response;
 Router::get('/login', function () {
     return new Response('Show login form');
 });
-```
-
-### Predefine common pattern replacements
-
-Usually you will use patterns like: id, name, token, pid, uid etc.
-
-Instead of defining these in each route, you can predefine them in getSharedPatterns method,
-which is located in Mvarkus\MakiRouter class.
-
-The method simply returns array of patterns, 
-the array will be used by every route to check for replacement patterns.
-
-File: **src/MakiRouter.php**
-Line: **31**
-```php
-/**
- * Returns shared patterns.
- *
- * @return array
- */
-public static function getSharedPatterns(): array
-{
-    return [
-        'id|category_id|user|product|post' => '[0-9]+',
-        'firstname|middlename|name|surname|secondname|title' => '[a-zA-Z]+'
-    ];
-}
 ```
 
 ### PUT route
@@ -321,7 +302,7 @@ use Symfony\Component\HttpFoundation\Response;
 // firstname and second name parameters have been defined globaly in Mvarkus\MakiRouter class, line: 31
 // So you do not have to define replacements here.
 Router::get(
-    '/users/{firstname}/{secondname}',
+    '/users/{firstName}/{secondName}',
     function (
         string $firstName,
         string $secondName
@@ -379,12 +360,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 // Register group of routes which share settings
 Router::group([
-    'prefix' => 'dashboard/{dashboardID?}',
+    'prefix' => 'dashboard/{dashboardId?}',
     'with' => [
-        'dashboardID' => '[0-9]+'
+        'dashboardId' => '[0-9]+'
     ],
     'default' => [
-        'dashboardID' => 4 // If you hit /dashboard/posts/2. Default dashboard will be used
+        'dashboardId' => 4 // If you hit /dashboard/posts/2. Default dashboard will be used
     ]
 ],
 function() {
@@ -397,15 +378,15 @@ function() {
     });
 
     // Example uri: /dashboard/1/posts/4
-    Router::get('posts/{pid}', function (
+    Router::get('posts/{pId}', function (
         int $dashboardId,
-        int $postId
+        int $pId
     ) {
 
-        return new Response("Post id: {$postId} on dashboard #{$dashboardId}");
+        return new Response("Post id: {$pId} on dashboard #{$dashboardId}");
     
     })->with(
-        ['pid' => '[0-9]+']
+        ['pId' => '[0-9]+']
     );
 
 });
