@@ -132,7 +132,7 @@ Router::get(
         return new Response("User #{$id}");
     }
 )->with([ // <--- Good
-    'id' => '[0-9]'
+    'id' => '[0-9]+'
 ]);
 // Visiting /users/1 will give us: User #1
 ```
@@ -180,7 +180,7 @@ Router::get(
         return new Response("Dashboard #{$id}");
     }
 )->with([
-    'id' => '[0-9]'
+    'id' => '[0-9]+'
 ])->default([ // <--- Defining default parameter
     'id' => 3
 ]);
@@ -204,7 +204,7 @@ Router::get(
         return new Response("Dashboard #{$id}");
     }
 )->with([
-    'id' => '[0-9]'
+    'id' => '[0-9]+'
 ]); // <--- No default
 // Visiting /users/1 will give us: Dashboard #1
 // Visiting /users will give us: Dashboard #
@@ -249,7 +249,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Put request
-// id has been defined globaly in Mvarkus\MakiRouter class, line: 31
+// id has been defined globaly in Mvarkus\MakiRouter class
 Router::put('/users/{id}', function (
     int $id,
     Request $request
@@ -285,7 +285,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Delete request
-// id has been defined globaly in Mvarkus\MakiRouter class, line: 31
+// id has been defined globaly in Mvarkus\MakiRouter class
 Router::delete('/posts/{id}', function (int $id) {
     return new Response("Remove post with id #{$id}");
 });
@@ -300,7 +300,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // More than one parameter
-// firstname and second name parameters have been defined globaly in Mvarkus\MakiRouter class, line: 31
+// firstname and second name parameters have been defined globaly in Mvarkus\MakiRouter class
 // So you do not have to define replacements here.
 Router::get(
     '/users/{firstName}/{secondName}',
@@ -322,7 +322,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Get method with optional parameter
-// id has been defined globaly in Mvarkus\MakiRouter class, line: 31
+// id has been defined globaly in Mvarkus\MakiRouter class
 // So you do not have to define replacements here.
 Router::get(
     '/users/{id?}/username',
