@@ -21,11 +21,12 @@ PHP router which navigates request through an application.
 require __DIR__ . "/../vendor/autoload.php";
 
 Mvarkus\MakiRouter::init(
-   'path/to/routes/file',
-   '\Mvarkus\Controllers', [
+   __DIR__ . '/../routes/web.php', // path to routes file
+   '\Mvarkus\Controllers', // Namespace of Controllers (optional)
+   [
       'id|postId|productId' => '[0-9]+',
       'tag|name|lname|fname' => '[a-zA-Z+]'
-   ]
+   ] // Shared patters (optional)
 );
 Mvarkus\MakiRouter::routeRequest(
     Symfony\Component\HttpFoundation\Request::createFromGlobals()
