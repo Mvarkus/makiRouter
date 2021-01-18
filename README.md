@@ -26,7 +26,7 @@ Mvarkus\MakiRouter::init(
    [
       'id|postId|productId' => '[0-9]+',
       'tag|name|lname|fname' => '[a-zA-Z+]'
-   ] // Shared patters (optional)
+   ] // Shared patterns (optional)
 );
 Mvarkus\MakiRouter::routeRequest(
     Symfony\Component\HttpFoundation\Request::createFromGlobals()
