@@ -103,7 +103,7 @@ Router::get(
         return new Response("{$digitOne} + {$digitTwo} =" . $digitOne+$digitTwo);
     }
 )->with([
-    'digit' => '[0-9]'
+    'digit' => '[0-9]+'
 ]);
 // Visiting /calc/1/1 will give us: Warning: preg_match(): Compilation failed: two named subpatterns have the same name.
 ```
